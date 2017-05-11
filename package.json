@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ckrinteractive/ThumbnailGridExpandingPreview/issues"
   },
-  "homepage": "https://github.com/ckrinteractive/ThumbnailGridExpandingPreview"
+  "homepage": "https://github.com/ckrinteractive/ThumbnailGridExpandingPreview",
+  "dependencies": {
+    "jquery": "^3.2.1"
+  }
 }

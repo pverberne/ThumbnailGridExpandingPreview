@@ -7,6 +7,8 @@
 * Copyright 2011 @louis_remi
 * Licensed under the MIT license.
 */
+var Modernizr = require('./modernizr.custom.js');
+window.jQuery = window.$ = require('jquery');
 var $event = $.event,
 $special,
 resizeTimeout;
@@ -161,13 +163,13 @@ $.fn.imagesLoaded = function( callback ) {
 	return deferred ? deferred.promise( $this ) : $this;
 };
 
-var Grid = (function() {
+export = (function(parent_selector, child_selector) {
 		// grid selector
-		var $selector = '#og-grid', 
+		var $selector = parent_selector,
 		// list of items
 		$grid = $( $selector ),
 		// the items
-		$items = $grid.children( 'li' ),
+		$items = $grid.children( child_selector ),
 		// current expanded item's index
 		current = -1,
 		// position (top) of the expanded item
@@ -199,7 +201,7 @@ var Grid = (function() {
 		};
 
 	function init( config ) {
-		
+
 		// the settings..
 		settings = $.extend( true, {}, settings, config );
 		// preload all images
@@ -247,16 +249,16 @@ var Grid = (function() {
 	}
 
 	function initEvents() {
-		
+
 		// when clicking an item, show the preview with the item´s info and large image.
 		// close the item if already expanded.
 		// also close if clicking on the item´s cross
 		initItemsEvents( $items );
-		
+
 		// on window resize get the window´s size again
 		// reset some values..
 		$window.on( 'debouncedresize', function() {
-			
+
 			scrollExtra = 0;
 			previewPos = -1;
 			// save item´s offset
@@ -313,7 +315,7 @@ var Grid = (function() {
 				preview.update( $item );
 				return false;
 			}
-			
+
 		}
 
 		// update previewPos
@@ -368,7 +370,7 @@ var Grid = (function() {
 			if( $item ) {
 				this.$item = $item;
 			}
-			
+
 			// if already expanded remove class "og-expanded" from current item and add it to new item
 			if( current !== -1 ) {
 				var $currentItem = $items.eq( current );
@@ -397,7 +399,7 @@ var Grid = (function() {
 			}
 
 			var self = this;
-			
+
 			// remove the current image in the preview
 			if( typeof self.$largeImg != 'undefined' ) {
 				self.$largeImg.remove();
@@ -415,13 +417,13 @@ var Grid = (function() {
 						self.$largeImg = $img.fadeIn( 350 );
 						self.$fullimage.append( self.$largeImg );
 					}
-				} ).attr( 'src', eldata.largesrc );	
+				} ).attr( 'src', eldata.largesrc );
 			}
 
 		},
 		open : function() {
 
-			setTimeout( $.proxy( function() {	
+			setTimeout( $.proxy( function() {
 				// set the height for the preview and the item
 				this.setHeights();
 				// scroll to position the preview in the right place
@@ -455,7 +457,7 @@ var Grid = (function() {
 				}
 
 			}, this ), 25 );
-			
+
 			return false;
 
 		},
@@ -501,7 +503,7 @@ var Grid = (function() {
 			var position = this.$item.data( 'offsetTop' ),
 				previewOffsetT = this.$previewEl.offset().top - scrollExtra,
 				scrollVal = this.height + this.$item.data( 'height' ) + marginExpanded <= winsize.height ? position : this.height < winsize.height ? previewOffsetT - ( winsize.height - this.height ) : previewOffsetT;
-			
+
 			$body.animate( { scrollTop : scrollVal }, settings.speed );
 
 		},
@@ -514,9 +516,9 @@ var Grid = (function() {
 		}
 	}
 
-	return { 
+	return {
 		init : init,
 		addItems : addItems
 	};
 
-})();
+})(parent_selector, child_selector);
