@@ -18,6 +18,9 @@ Grid = (function() {
 		scrollExtra = 0,
 		// extra margin when expanded (between preview overlay and the next items)
 		marginExpanded = 10,
+		// reduce size of the overlay according to the size of the items row
+		// in order to display next row and to incite user to click next items.
+		marginItemHeightPercent = 67,
 		$window = $( window ), winsize,
 		$body = $( 'html, body' ),
 		// transitionend events
@@ -305,8 +308,8 @@ Grid = (function() {
 		},
 		calcHeight : function() {
 
-			var heightPreview = winsize.height - this.$item.data( 'height' ) - marginExpanded,
-				itemHeight = winsize.height;
+			var heightPreview = winsize.height - this.$item.data( 'height' ) - marginExpanded - (this.$item.data( 'height' ) * marginItemHeightPercent / 100),
+				itemHeight = winsize.height - (this.$item.data( 'height' ) * marginItemHeightPercent / 100);
 
 			if( heightPreview < settings.minHeight ) {
 				heightPreview = settings.minHeight;
