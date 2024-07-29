@@ -18,4 +18,4 @@ Read more here: [License](http://tympanus.net/codrops/licensing/)
 
 This fork allows to use recent jQuery and updates other libraries.
 
-This gallery is available in [Omeka S](https://omeka.org/s) through the module [BlockPlus](https://github.com/Daniel-KM/Omeka-S-module-BlockPlus).
+This gallery is available in [Omeka S](https://omeka.org/s) through the module [Block Plus](https://github.com/Daniel-KM/Omeka-S-module-BlockPlus).
