@@ -125,7 +125,8 @@
 	margin-bottom: 10px;
 }
 
-.og-details p {
+.og-details p,
+.og-details div {
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 22px;
@@ -192,6 +193,7 @@
 @media screen and (max-width: 830px) {
 
 	.og-expander h3 { font-size: 32px; }
+	.og-expander div { font-size: 13px; }
 	.og-expander p { font-size: 13px; }
 	.og-expander a { font-size: 12px; }
 

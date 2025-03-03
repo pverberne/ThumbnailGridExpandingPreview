@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function() {
             create: function() {
                 // create Preview structure:
                 this.title = document.createElement('h3');
-                this.description = document.createElement('p');
+                this.description = document.createElement('div');
                 var detailAppends = [this.title, this.description];
                 if (settings.showVisitButton) {
                     this.href = document.createElement('a');
@@ -252,7 +252,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     };
 
                 this.title.textContent = eldata.title;
-                this.description.textContent = eldata.description;
+                if (/<[a-z][\s\S]*>/i.test(eldata.description)) {
+                    this.description.innerHTML = eldata.description;
+                } else {
+                    this.description.textContent = eldata.description;
+                }
                 if (settings.showVisitButton && eldata.url && eldata.url.length) {
                     this.href.setAttribute('href', eldata.url);
                 }
