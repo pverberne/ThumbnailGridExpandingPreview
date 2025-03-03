@@ -81,19 +81,28 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         function initItemsEvents(items) {
+            if (!items) {
+                return;
+            }
             items.forEach(function(item) {
-                item.querySelector('span.og-close').addEventListener('click', function() {
-                    hidePreview();
-                    return false;
-                });
-                item.querySelector('a').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    // check if item already opened
-                    current === items.indexOf(item)
-                        ? hidePreview()
-                        : showPreview(item);
-                    return false;
-                });
+                const itemClose = item.querySelector('span.og-close');
+                if (itemClose) {
+                    itemClose.addEventListener('click', function() {
+                        hidePreview();
+                        return false;
+                    });
+                }
+                const itemA = item.querySelector('a');
+                if (itemA) {
+                    itemA.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        // check if item already opened
+                        current === items.indexOf(item)
+                            ? hidePreview()
+                            : showPreview(item);
+                        return false;
+                    });
+                }
             });
         }
 
@@ -161,7 +170,9 @@ document.addEventListener("DOMContentLoaded", function() {
         function hidePreview() {
             current = -1;
             var preview = windowEl.preview;
-            preview.close();
+            if (preview) {
+                preview.close();
+            }
             windowEl.preview = null;
         }
 
@@ -217,9 +228,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
 
                 // if already expanded remove class "og-expanded" from current item and add it to new item
+                var currentItem;
                 if (current !== -1) {
-                    var currentItem = items[current];
-                    currentItem.classList.remove('og-expanded');
+                    items[current].classList.remove('og-expanded');
                     this.item.classList.add('og-expanded');
                     // position the preview correctly
                     this.positionPreview();
@@ -227,12 +238,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 // update current value
                 current = items.indexOf(this.item);
+                currentItem = items[current];
 
                 // update preview´s content
                 var itemEl = this.item.querySelector('a'),
                     eldata = {
                         href: itemEl.getAttribute('href'),
-                        largesrc: itemEl.dataset.largesrc,
+                        largesrc: itemEl.dataset.largesrc.startsWith('http')
+                            ? itemEl.dataset.largesrc
+                            : new URL(itemEl.dataset.largesrc, window.location.href).href,
                         title: itemEl.dataset.title,
                         description: itemEl.dataset.description,
                     };
@@ -255,17 +269,32 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 if (self.fullimage.style.display !== 'none') {
                     this.loading.style.display = 'block';
-                    var img = new Image();
+                    const img = new Image();
                     img.onload = function() {
-                        if (img.src === self.item.querySelector('a').dataset.largesrc) {
-                            self.loading.style.display = 'none';
-                            self.fullimage.querySelector('img').remove();
-                            self.largeImg = img;
-                            self.largeImg.style.display = 'block';
-                            self.fullimage.appendChild(self.largeImg);
+                        const itemA = self.item.querySelector('a');
+                        if (itemA) {
+                            const fullLargeSrc = itemA.dataset.largesrc.startsWith('http')
+                                ? itemA.dataset.largesrc
+                                : new URL(itemA.dataset.largesrc, window.location.href).href;
+                            if (img.src === fullLargeSrc) {
+                                self.loading.style.display = 'none';
+                                const fullImg = self.fullimage.querySelector('img');
+                                if (fullImg) {
+                                    fullImg.remove();
+                                }
+                                self.largeImg = img;
+                                self.largeImg.style.display = 'block';
+                                self.fullimage.appendChild(self.largeImg);
+                            }
                         }
                     };
                     img.src = eldata.largesrc;
+                }
+
+                // Add the event to close.
+                const itemClose = currentItem.querySelector('span.og-close');
+                if (itemClose) {
+                    itemClose.addEventListener('click', hidePreview);
                 }
             },
             open: function() {
@@ -278,13 +307,13 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             close: function() {
                 var self = this,
-                onEndFn = function() {
-                    if (support) {
-                        self.item.removeEventListener(transEndEventName, onEndFn);
-                    }
-                    self.item.classList.remove('og-expanded');
-                    self.previewEl.remove();
-                };
+                    onEndFn = function() {
+                        if (support) {
+                            self.item.removeEventListener(transEndEventName, onEndFn);
+                        }
+                        self.item.classList.remove('og-expanded');
+                        self.previewEl.remove();
+                    };
 
                 setTimeout(function() {
                     if (self.largeImg) {
