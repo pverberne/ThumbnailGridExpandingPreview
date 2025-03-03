@@ -1,17 +1,14 @@
-var Modernizr = require('../vendor/modernizr.custom.js');
-window.jQuery = window.$ = require('jquery');
-
 var Grid = {};
 
 $(document).ready(function() {
 
-export = (function(parent_selector, child_selector) {
+Grid = (function() {
 		// grid selector
-		var $selector = parent_selector,
+		var $selector = '#og-grid',
 		// list of items
 		$grid = $( $selector ),
 		// the items
-		$items = $grid.children( child_selector ),
+		$items = $grid.children( 'li'),
 		// current expanded item's index
 		current = -1,
 		// position (top) of the expanded item
@@ -369,6 +366,6 @@ export = (function(parent_selector, child_selector) {
 		addItems : addItems
 	};
 
-})(parent_selector, child_selector);
+})();
 
 });
