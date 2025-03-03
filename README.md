@@ -10,12 +10,14 @@ A tutorial on how to create a thumbnail grid with an expanding image preview sim
 
 Integrate or build upon it for free in your personal or commercial projects. Don't republish, redistribute or sell "as-is".
 
-Read more here: [License](http://tympanus.net/codrops/licensing/)
+[License (read more)](http://tympanus.net/codrops/licensing/): MIT
 
 [© Codrops 2013](http://www.codrops.com)
 
 ## Fork
 
-This fork allows to use recent jQuery and updates other libraries.
+Upgraded to native javascript without dependencies and improved by [Daniel-KM](https://gitlab.com/Daniel-KM)
 
-This gallery is available in [Omeka S](https://omeka.org/s) through the module [Block Plus](https://github.com/Daniel-KM/Omeka-S-module-BlockPlus).
+This gallery is available in [Omeka S](https://omeka.org/s) through the module [Block Plus](https://gitlab.com/Daniel-KM/Omeka-S-module-BlockPlus).
+
+A live example can be seen on the site [Ontologie du christianisme médiéval en images](https://omci.inha.fr/s/ocmi/page/images), from French [Institut national de l’histoire de l’art](https://www.inha.fr).
