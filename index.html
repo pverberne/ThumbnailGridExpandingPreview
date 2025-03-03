@@ -11,17 +11,11 @@
 		<link rel="shortcut icon" href="../favicon.ico">
 		<link rel="stylesheet" type="text/css" href="css/default.css" />
 		<link rel="stylesheet" type="text/css" href="css/component.css" />
-		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-		<script src="vendor/modernizr/modernizr-custom.js"></script>
-		<script src="vendor/jquery-smartresize/jquery.debouncedresize.js"></script>
-		<script src="vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
 		<script src="js/grid.js"></script>
 		<script>
-		$(document).ready(function() {
-			$(function() {
-				Grid.init({
-					showVisitButton: false,
-				});
+		document.addEventListener('DOMContentLoaded', function() {
+			Grid.init({
+				showVisitButton: false,
 			});
 		});
 		</script>
