@@ -14,14 +14,17 @@
 }
 
 .og-grid > li > a,
-.og-grid > li > a img {
+.og-grid > li > a img,
+.og-grid > li > button,
+.og-grid > li > button img {
 	border: none;
 	outline: none;
 	display: block;
 	position: relative;
 }
 
-.og-grid > li.og-expanded > a::after {
+.og-grid > li.og-expanded > a::after,
+.og-grid > li.og-expanded > button::after {
 	top: auto;
 	border: solid transparent;
 	content: " ";
@@ -33,6 +36,10 @@
 	border-width: 15px;
 	left: 50%;
 	margin: -20px 0 0 -15px;
+}
+
+.og-grid button {
+	cursor: pointer;
 }
 
 .og-expander {
@@ -59,12 +66,15 @@
 	top: 20px;
 	right: 20px;
 	cursor: pointer;
+	border: none;
+	background: transparent;
 }
 
 .og-close::before,
 .og-close::after {
 	content: '';
 	position: absolute;
+	left: 0;
 	width: 100%;
 	top: 50%;
 	height: 1px;

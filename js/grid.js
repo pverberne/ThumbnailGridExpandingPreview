@@ -85,17 +85,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
             items.forEach(function(item) {
-                const itemClose = item.querySelector('span.og-close');
+                const itemClose = item.querySelector('button.og-close');
                 if (itemClose) {
                     itemClose.addEventListener('click', function() {
                         hidePreview();
                         return false;
                     });
                 }
-                const itemA = item.querySelector('a');
-                if (itemA) {
-                    itemA.addEventListener('click', function(e) {
-                        e.preventDefault();
+                const itemButton = item.querySelector('button');
+                if (itemButton) {
+                    itemButton.addEventListener('click', function() {
                         // check if item already opened
                         current === items.indexOf(item)
                             ? hidePreview()
@@ -205,8 +204,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 this.fullimage = document.createElement('div');
                 this.fullimage.className = 'og-fullimg';
                 this.fullimage.appendChild(this.loading);
-                this.closePreview = document.createElement('span');
+                this.closePreview = document.createElement('button');
                 this.closePreview.className = 'og-close';
+                this.closePreview.setAttribute('aria-label', 'Close');
                 this.previewInner = document.createElement('div');
                 this.previewInner.className = 'og-expander-inner';
                 [this.closePreview, this.fullimage, this.details].forEach(function(el) {
@@ -241,20 +241,20 @@ document.addEventListener("DOMContentLoaded", function() {
                 currentItem = items[current];
 
                 // update preview´s content
-                var itemEl = this.item.querySelector('a'),
+                var itemButton = this.item.querySelector('button'),
                     eldata = {
-                        href: itemEl.getAttribute('href'),
-                        largesrc: itemEl.dataset.largesrc.startsWith('http')
-                            ? itemEl.dataset.largesrc
-                            : new URL(itemEl.dataset.largesrc, window.location.href).href,
-                        title: itemEl.dataset.title,
-                        description: itemEl.dataset.description,
+                        url: itemButton.dataset.url,
+                        largesrc: itemButton.dataset.largesrc.startsWith('http')
+                            ? itemButton.dataset.largesrc
+                            : new URL(itemButton.dataset.largesrc, window.location.href).href,
+                        title: itemButton.dataset.title,
+                        description: itemButton.dataset.description,
                     };
 
                 this.title.textContent = eldata.title;
                 this.description.textContent = eldata.description;
-                if (settings.showVisitButton) {
-                    this.href.setAttribute('href', eldata.href);
+                if (settings.showVisitButton && eldata.url && eldata.url.length) {
+                    this.href.setAttribute('href', eldata.url);
                 }
 
                 var self = this;
@@ -271,11 +271,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     this.loading.style.display = 'block';
                     const img = new Image();
                     img.onload = function() {
-                        const itemA = self.item.querySelector('a');
-                        if (itemA) {
-                            const fullLargeSrc = itemA.dataset.largesrc.startsWith('http')
-                                ? itemA.dataset.largesrc
-                                : new URL(itemA.dataset.largesrc, window.location.href).href;
+                        const itemButton = self.item.querySelector('button');
+                        if (itemButton) {
+                            const fullLargeSrc = itemButton.dataset.largesrc.startsWith('http')
+                                ? itemButton.dataset.largesrc
+                                : new URL(itemButton.dataset.largesrc, window.location.href).href;
                             if (img.src === fullLargeSrc) {
                                 self.loading.style.display = 'none';
                                 const fullImg = self.fullimage.querySelector('img');
@@ -292,7 +292,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
 
                 // Add the event to close.
-                const itemClose = currentItem.querySelector('span.og-close');
+                const itemClose = currentItem.querySelector('button.og-close');
                 if (itemClose) {
                     itemClose.addEventListener('click', hidePreview);
                 }
