@@ -1,0 +1,22 @@
+{
+  "name": "thumbnailgridexpandingpreview",
+  "version": "1.0.0",
+  "description": "Thumbnail Grid with Expanding Preview ========= A tutorial on how to create a thumbnail grid with an expanding image preview similar to the effect seen on Google Images.",
+  "main": "js/grid.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ckrinteractive/ThumbnailGridExpandingPreview.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ckrinteractive/ThumbnailGridExpandingPreview/issues"
+  },
+  "homepage": "https://github.com/ckrinteractive/ThumbnailGridExpandingPreview",
+  "dependencies": {
+    "jquery": "^3.2.1"
+  }
+}
