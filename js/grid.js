@@ -338,11 +338,11 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             calcHeight: function() {
                 var heightPreview = winsize.height - this.item.dataset.height - marginExpanded - (this.item.dataset.height * marginItemHeightPercent / 100),
-                itemHeight = winsize.height - (this.item.dataset.height * marginItemHeightPercent / 100);
+                itemHeight = parseFloat(winsize.height) - parseFloat(this.item.dataset.height * marginItemHeightPercent / 100);
 
                 if (heightPreview < settings.minHeight) {
                     heightPreview = settings.minHeight;
-                    itemHeight = settings.minHeight + this.item.dataset.height + marginExpanded;
+                    itemHeight = parseFloat(settings.minHeight) + parseFloat(this.item.dataset.height) + parseFloat(marginExpanded);
                 }
 
                 this.height = heightPreview;
@@ -373,7 +373,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 // case 3: preview height + item height does not fit in window´s height and preview height is bigger than window´s height
                 var position = this.item.dataset.offsetTop,
                     previewOffsetT = this.previewEl.getBoundingClientRect().top - scrollExtra,
-                    scrollVal = this.height + this.item.dataset.height + marginExpanded <= winsize.height
+                    scrollVal = parseFloat(this.height) + parseFloat(this.item.dataset.height) + parseFloat(marginExpanded) <= parseFloat(winsize.height)
                         ? position
                         : this.height < winsize.height
                             ? previewOffsetT - (winsize.height - this.height)

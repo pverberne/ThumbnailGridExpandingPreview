@@ -16,6 +16,8 @@ Integrate or build upon it for free in your personal or commercial projects. Don
 
 ## Fork
 
+Forked from Daniel-KM's repo to contribute debugging.
+
 Upgraded to native javascript without dependencies and improved by [Daniel-KM](https://gitlab.com/Daniel-KM)
 
 This gallery is available in [Omeka S](https://omeka.org/s) through the module [Block Plus](https://gitlab.com/Daniel-KM/Omeka-S-module-BlockPlus).
